@@ -25,7 +25,7 @@ class ProcessText(object):
 
     @property
     def find_links(self):
-        pattern = re.compile(r'(\w+.\w+\.[ru]+/?\w+)')
+        pattern = re.compile(r'(\w+.\w+\.[ru]+/?\w+\.?)')
         return pattern.findall(self.text)
 
     @property
@@ -33,10 +33,13 @@ class ProcessText(object):
         pattern = re.compile(r'[\w]+.ru')
         c = Counter(pattern.findall(self.text))
         ret = max(dict(c), key=c.get)
-        return "чаще всего используется домен [{}]".format(ret)
+        return "чаще всего используется домен [{}], [{}] случая".format(ret, c[ret])
 
-    def decorate_links(self, text, replace):
-        pass
+    def decorate_links(self, decor):
+        text = self.text
+        for x in self.find_links:
+            text = re.sub(x, decor, text)
+        return text
 
 
 def main():
@@ -49,6 +52,7 @@ def main():
     print(p.find_freq_word(6))
     print(p.find_links)
     print(p.find_freq_links_domain)
+    print(p.decorate_links("[Ссылка отобразится после регистрации]"))
 
 
 if __name__ == '__main__':
