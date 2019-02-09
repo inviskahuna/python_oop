@@ -49,7 +49,7 @@ def main():
     p = ProcessText(raw_text)
 
     print(p.split_by_sentences)
-    print(p.find_freq_word(6))
+    print(p.find_freq_word(4))
     print(p.find_links)
     print(p.find_freq_links_domain)
     print(p.decorate_links("[Ссылка отобразится после регистрации]"))
