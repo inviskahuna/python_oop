@@ -2,6 +2,7 @@ import re
 import codecs
 from collections import Counter
 
+
 class ProcessText(object):
 
     def __init__(self, text):
@@ -22,11 +23,17 @@ class ProcessText(object):
         ret = max(dict(c), key=c.get)
         return "Самое частое слово длинной не менее [{}] [{}], [{}] случая".format(length, ret, c[ret])
 
-    def find_links(self, text):
-        pass
+    @property
+    def find_links(self):
+        pattern = re.compile(r'(\w+.\w+\.[ru]+/?\w+)')
+        return pattern.findall(self.text)
 
-    def find_freq_links_domain(self, text):
-        pass
+    @property
+    def find_freq_links_domain(self):
+        pattern = re.compile(r'[\w]+.ru')
+        c = Counter(pattern.findall(self.text))
+        ret = max(dict(c), key=c.get)
+        return "чаще всего используется домен [{}]".format(ret)
 
     def decorate_links(self, text, replace):
         pass
@@ -40,6 +47,8 @@ def main():
 
     print(p.split_by_sentences)
     print(p.find_freq_word(6))
+    print(p.find_links)
+    print(p.find_freq_links_domain)
 
 
 if __name__ == '__main__':
