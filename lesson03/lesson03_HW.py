@@ -22,7 +22,6 @@ class IATAGetter(object):
     def get_iata_by_name(self):
         l = f"{self.link}Из {self.city} в {self.dummy_city}"
         response = get(l)
-        print(response.text)
         ret = loads(response.text)
         return ret["origin"]["iata"]
 
@@ -36,9 +35,10 @@ class IATAGetter(object):
 
 
 def main():
-    g = IATAGetter("Иркутск")
-    print(g.get_iata_by_name)
-    print(g.get_iata_by_ip)
+    target_city = "Иркутск"
+    g = IATAGetter(target_city)
+    print(f"По вашему объекту {target_city} установлен IATA --> {g.get_iata_by_name}")
+    print(f"Ближайший аэропорт по вашему IP --> {g.get_iata_by_ip}")
 
 
 if __name__ == '__main__':
