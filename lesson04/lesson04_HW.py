@@ -62,7 +62,7 @@ class WikiTopic(object):
             words_list = self.get_words(html)
             ret.append(self.get_common_words(words_list))
             do += 1
-            buf_size += len(i) #
+            buf_size += len(i)
             print(f"Do {do} of {length}, buf size {buf_size}")
         return ret
 
